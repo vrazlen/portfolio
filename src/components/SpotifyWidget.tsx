@@ -16,7 +16,7 @@ export default function SpotifyWidget() {
 
     useEffect(() => {
         // In a real deployment, this fetches from the generated JSON file
-        fetch('/my-portfolio/data/spotify.json')
+        fetch('/portfolio/data/spotify.json')
             .then((res) => {
                 if (!res.ok) throw new Error('Failed to fetch');
                 return res.json();

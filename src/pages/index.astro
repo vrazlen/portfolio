@@ -60,12 +60,13 @@ if (githubToken) {
         </BentoCard>
 
         <!-- Map / Location -->
-        <BentoCard colSpan={1} rowSpan={1} title="Location" class="bg-emerald-50 dark:bg-emerald-950/30 border-emerald-100 dark:border-emerald-900/50">
-            <div class="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
-                <MapPin size={80} />
-            </div>
-            <div class="relative z-10 h-full flex items-center justify-center">
-                <p class="text-2xl font-display font-bold text-emerald-700 dark:text-emerald-400">Indonesia</p>
+        <BentoCard colSpan={1} rowSpan={1} title="Location" class="relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center opacity-40 grayscale transition-all duration-500 group-hover:opacity-60 group-hover:grayscale-0 group-hover:scale-110"></div>
+            <div class="relative z-10 h-full flex flex-col items-center justify-center">
+                <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center backdrop-blur-sm mb-2 border border-emerald-500/30">
+                    <MapPin size={24} className="text-emerald-500" />
+                </div>
+                <p class="text-xl font-display font-bold text-slate-900 dark:text-slate-100">Indonesia</p>
             </div>
         </BentoCard>
 

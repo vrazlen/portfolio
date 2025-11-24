@@ -79,7 +79,7 @@ Instead of an API token, you will simply add the image URLs you want to feature 
 2.  Click **"Generate new token (classic)"**.
 3.  **Note**: `Portfolio Access`.
 4.  **Expiration**: `No expiration` (or set a reminder to rotate it).
-5.  **Scopes**: Check `repo` (for private repos) and `read:user`.
+5.  **Scopes**: Check `repo` (for private repos), `workflow` (CRITICAL for deploying), and `read:user`.
 6.  Click **Generate token**.
 7.  Copy the token immediately. -> *Save this for later.*
 
