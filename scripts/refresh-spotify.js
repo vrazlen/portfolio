@@ -1,19 +1,5 @@
-import fs from 'fs';
-import { getNowPlaying, getRecentlyPlayed } from '../src/lib/spotify.ts';
-
-// Note: In a real environment, we might need to compile this TS or run it with ts-node.
-// For simplicity in this "serverless on static" setup, we will write a pure JS version for the script
-// or assume the environment can handle TS (e.g. using bun or tsx). 
-// However, the user asked for Node scripts. I will write a JS version here that mirrors the logic
-// but is self-contained to avoid import issues in the CI environment without a build step for scripts.
-
-/* 
-   SELF-CONTAINED NODE SCRIPT FOR CI/CD 
-   Run with: node scripts/refresh-spotify.js
-*/
-
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const fsPromises = fs.promises;
+import fs from 'fs/promises';
+import { Buffer } from 'node:buffer';
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
@@ -78,7 +64,7 @@ async function main() {
             };
         }
 
-        await fsPromises.writeFile('./public/data/spotify.json', JSON.stringify(data, null, 2));
+        await fs.writeFile('./public/data/spotify.json', JSON.stringify(data, null, 2));
         console.log('Spotify data updated!');
 
     } catch (error) {
