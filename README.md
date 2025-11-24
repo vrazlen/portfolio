@@ -1,61 +1,42 @@
-# My Bento Portfolio
+# My Personal Portfolio
 
-A serverless-on-static developer portfolio built with Astro, React, Tailwind CSS, and GitHub Actions.
+Welcome to the repository of my personal website! This project is a reflection of my work, built with a focus on simplicity, performance, and automation.
 
-## 🚀 Project Overview
+## 🌟 About This Project
 
-This project uses the **Islands Architecture** to deliver a high-performance static site with dynamic capabilities.
-- **Frontend**: Astro (Static Generation) + React (Interactive Islands) + Tailwind CSS (Styling)
-- **Backend**: GitHub Actions (Cron Jobs) + Serverless Functions (Build-time fetching)
-- **Database**: JSON files in `public/data` (Self-healing data store)
+I wanted a portfolio that feels "alive" without requiring me to constantly update it manually. This site uses a **"Serverless on Static"** architecture:
+- **Design**: A clean Bento Grid layout that adapts to any screen.
+- **Tech Stack**: Built with [Astro](https://astro.build), [React](https://react.dev), and [Tailwind CSS](https://tailwindcss.com).
+- **Automation**: GitHub Actions automatically fetch my latest **Spotify** listening history and **GitHub** repositories, so the content is always fresh.
 
-## 🛠️ Integration Instructions
+## 🛠️ How It Works
 
-### 1. Spotify Integration
-To enable the "Now Playing" widget:
-1. Go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard).
-2. Create an App and get `Client ID` and `Client Secret`.
-3. Add `http://localhost:4321` to Redirect URIs.
-4. Authorize your app to get the `Refresh Token` (see `src/lib/spotify.ts` comments or use a helper tool).
-5. Add the following **Repository Secrets** in GitHub:
-   - `SPOTIFY_CLIENT_ID`
-   - `SPOTIFY_CLIENT_SECRET`
-   - `SPOTIFY_REFRESH_TOKEN`
+- **Spotify Widget**: Shows what I'm currently listening to (or the last song I played). It updates every 30 minutes via a background job.
+- **GitHub Stats**: Automatically pins my top repositories.
+- **Location Card**: A simple visual indicator of where I am based.
+- **Links**: A central hub for all my social media profiles.
 
-### 2. Instagram Integration
-To enable the Photo Feed:
-1. Obtain a **Long-Lived Access Token** from the Instagram Basic Display API.
-2. Add it as a **Repository Secret**:
-   - `INSTAGRAM_ACCESS_TOKEN`
-3. The `instagram-cron.yml` workflow will automatically refresh this token before it expires.
+## 🚀 Running Locally
 
-### 3. GitHub Stats
-To enable Pinned Repositories:
-1. Create a **Personal Access Token** (Classic) with `repo` and `read:user` scopes.
-2. Add it as a **Repository Secret**:
-   - `GITHUB_TOKEN` (Note: This is different from the default `GITHUB_TOKEN` used by Actions. You might need to name it `GH_PAT` and update `astro.config.mjs` or `deploy.yml` accordingly, but the current setup uses the default token for simple read ops if public, or you can inject a PAT).
-   *Update*: The current `deploy.yml` passes the default `GITHUB_TOKEN`. If you need to access private repos, use a PAT.
+If you want to poke around the code or build your own version:
 
-### 4. Deployment
-1. Push this repository to GitHub.
-2. Go to **Settings > Pages**.
-3. Source: **GitHub Actions**.
-4. The `deploy.yml` workflow will automatically build and deploy your site.
+1.  **Clone the repo**:
+    ```bash
+    git clone https://github.com/vrazlen/portfolio.git
+    cd portfolio
+    ```
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
+3.  **Start the dev server**:
+    ```bash
+    npm run dev
+    ```
 
-## 🧪 Local Development
+## 📝 License
 
-```bash
-# Install dependencies
-npm install
+Feel free to use this code as a starting point for your own portfolio!
 
-# Start dev server
-npm run dev
-```
-
-## ✅ Final Checklist
-
-- [ ] `npm install` runs without errors.
-- [ ] `npm run build` generates `dist/` folder.
-- [ ] GitHub Repository Secrets are set.
-- [ ] workflows are enabled in GitHub Actions tab.
-- [ ] `astro.config.mjs` `site` and `base` are updated with your details.
+---
+*Built with ❤️ by Lenz Vrazda*

@@ -31,5 +31,5 @@ jobs:
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: update spotify data [skip ci]"
+          commit_message: "chore: update spotify data"
           file_pattern: public/data/spotify.json
