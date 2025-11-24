@@ -37,6 +37,3 @@ If you want to poke around the code or build your own version:
 ## 📝 License
 
 Feel free to use this code as a starting point for your own portfolio!
-
----
-*Built with ❤️ by Lenz Vrazda*
