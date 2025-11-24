@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BentoCard from '../components/BentoCard.astro';
+import ThemeToggle from '../components/ThemeToggle';
+import SpotifyWidget from '../components/SpotifyWidget';
+
+import GithubStats from '../components/GithubStats';
+import SocialLinks from '../components/SocialLinks.astro';
+import { getPinnedRepos, type Repository } from '../lib/github';
+import { ArrowUpRight, MapPin, Code } from 'lucide-react';
+
+// Fetch GitHub data at build time
+const githubToken = import.meta.env.GITHUB_TOKEN;
+let pinnedRepos: Repository[] = [];
+
+if (githubToken) {
+    try {
+        pinnedRepos = await getPinnedRepos('vrazlen', githubToken);
+    } catch (e) {
+        console.error("Failed to fetch GitHub data:", e);
+    }
+} else {
+    // Mock data for when token is missing (dev mode)
+    pinnedRepos = [
+        {
+            name: "portfolio",
+            description: "My personal portfolio website.",
+            url: "https://github.com/vrazlen/portfolio",
+            stargazerCount: 1,
+            forkCount: 0,
+            primaryLanguage: { name: "Astro", color: "#ff5a03" }
+        }
+    ];
+}
+---
+
+<Layout title="Lenz Vrazda | Developer Portfolio">
+	<div class="grid grid-cols-1 md:grid-cols-4 auto-rows-[180px] gap-4">
+        
+        <!-- Profile Card (Large) -->
+		<BentoCard colSpan={2} rowSpan={2} class="p-6 flex flex-col justify-between bg-gradient-to-br from-surface-50 to-surface-100 dark:from-surface-900 dark:to-surface-950">
+            <div class="flex justify-between items-start">
+                <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-white dark:border-surface-800 shadow-lg">
+                    <img src="https://github.com/vrazlen.png" alt="Profile" class="w-full h-full object-cover" />
+                </div>
+                <ThemeToggle client:load />
+            </div>
+            
+            <div>
+                <h1 class="text-4xl font-display font-bold text-slate-900 dark:text-slate-50 mb-2">
+                    Hello, I'm <span class="text-accent">Lenz Vrazda</span>.
+                </h1>
+                <p class="text-slate-600 dark:text-slate-400 text-lg text-balance">
+                    Building this so peoples think I'm busy.
+                </p>
+                <div class="flex gap-4 mt-6">
+                    <SocialLinks />
+                </div>
+            </div>
+        </BentoCard>
+
+        <!-- Map / Location -->
+        <BentoCard colSpan={1} rowSpan={1} title="Location" class="bg-emerald-50 dark:bg-emerald-950/30 border-emerald-100 dark:border-emerald-900/50">
+            <div class="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+                <MapPin size={80} />
+            </div>
+            <div class="relative z-10 h-full flex items-center justify-center">
+                <p class="text-2xl font-display font-bold text-emerald-700 dark:text-emerald-400">Indonesia</p>
+            </div>
+        </BentoCard>
+
+        <!-- Spotify Widget -->
+        <BentoCard colSpan={1} rowSpan={1} title="Listening" class="bg-slate-900 text-white">
+            <div class="h-full flex items-center">
+                <SpotifyWidget client:load />
+            </div>
+        </BentoCard>
+
+        <!-- GitHub Stats -->
+        <BentoCard colSpan={2} rowSpan={2} title="Open Source" class="overflow-y-auto">
+            <GithubStats repos={pinnedRepos} />
+        </BentoCard>
+
+        <!-- Links Page -->
+        <BentoCard colSpan={2} rowSpan={1} href="/portfolio/links" title="Links" description="All my socials." class="bg-accent text-white border-transparent">
+             <div class="absolute bottom-4 right-4">
+                <ArrowUpRight />
+            </div>
+        </BentoCard>
+
+	</div>
+</Layout>

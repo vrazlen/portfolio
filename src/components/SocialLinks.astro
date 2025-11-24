@@ -1,0 +1,30 @@
+---
+import { Github, Mail } from 'lucide-react';
+
+const socialLinks = [
+  {
+    name: 'GitHub',
+    href: 'https://github.com/vrazlen',
+    icon: Github,
+  },
+  {
+    name: 'Email',
+    href: 'mailto:vrazlen599@gmail.com',
+    icon: Mail,
+  },
+];
+---
+
+<div class="flex gap-4">
+  {socialLinks.map((link) => (
+    <a
+      href={link.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-slate-500 hover:text-accent transition-colors"
+      aria-label={link.name}
+    >
+      <link.icon size={20} />
+    </a>
+  ))}
+</div>

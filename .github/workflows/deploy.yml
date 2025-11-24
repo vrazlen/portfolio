@@ -1,0 +1,47 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Trigger on push to main
+  push:
+    branches: [ main ]
+  # Trigger manually if needed
+  workflow_dispatch:
+  # Trigger on a schedule (e.g., every 6 hours) to update "Recently Played" / "GitHub Stats"
+  schedule:
+    - cron: '0 */6 * * *'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Detects package manager (npm/pnpm/yarn) and installs deps
+      - name: Install, Build, and Upload
+        uses: withastro/action@v2
+        with:
+            path: .
+            # node-version: 20 # Optional override
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # For GitHub Stats fetching
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
